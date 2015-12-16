@@ -1,0 +1,58 @@
+﻿@model Sklepy.Models.Klient_has_Sklep
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Klient_has_Sklep</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Klient.Imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Klient.Imie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sklep.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sklep.Nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.znizka1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.znizka1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.znizka2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.znizka2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.znizka3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.znizka3)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Klient_has_SklepID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
