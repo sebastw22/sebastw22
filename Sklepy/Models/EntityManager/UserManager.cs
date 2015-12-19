@@ -55,6 +55,28 @@ namespace Sklepy.Models.EntityManager
             }
         }
 
+        public bool IsUserInRole(string loginName, string roleName)
+        {
+            using (UzytkownicyEntities db = new UzytkownicyEntities())
+            {
+                SYSUser SU = db.SYSUsers.Where(o => o.LoginName.ToLower().Equals(loginName))?.FirstOrDefault();
+                if (SU != null)
+                {
+                    var roles = from q in db.SYSUserRoles
+                                join r in db.LOOKUPRoles on q.LOOKUPRoleID equals r.LOOKUPRoleID
+                                where r.RoleName.Equals(roleName) && q.SYSUserID.Equals(SU.SYSUserID)
+                                select r.RoleName;
+
+                    if (roles != null)
+                    {
+                        return roles.Any();
+                    }
+                }
+
+                return false;
+            }
+        }
+
         public bool IsLoginNameExist(string loginName)
         {
             using (UzytkownicyEntities db = new UzytkownicyEntities())

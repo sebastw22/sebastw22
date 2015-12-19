@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Sklepy.Security;
 
 namespace Sklepy.Controllers
 {
@@ -36,6 +37,19 @@ namespace Sklepy.Controllers
         {
             return View();
         }
+
+        [AuthorizeRoles("Admin", "Sklep")]
+        public ActionResult AdminOnly()
+        {
+            return View();
+        }
+
+        public ActionResult UnAuthorized()
+        {
+            return View();
+        }
+
+
     }
 
 }
