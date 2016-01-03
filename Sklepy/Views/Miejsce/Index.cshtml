@@ -1,0 +1,139 @@
+﻿@model Sklepy.Models.ViewModel.ProduktIndexData
+
+@{
+    ViewBag.Title = "Miejsce";
+  //  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Wybrane miejsca</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>nazwa</th>
+        <th>adres</th>
+        <th>telefon</th>
+        <th>mail</th>
+        <th>dataotw</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Miejsces)
+{
+    
+    string selectedRow = "";    
+    if (item.MiejsceID == ViewBag.MiejsceID)
+    {
+        selectedRow = "success";
+    }
+
+<tr class="@selectedRow">
+        <td>
+            @Html.DisplayFor(modelItem => item.Nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adres)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telefon)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Data_otwarcia)
+        </td>
+        <td>
+            @Html.ActionLink("Select", "Index", new { id = item.MiejsceID }) |
+            @Html.ActionLink("Edit", "Edit", new { id=item.MiejsceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MiejsceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MiejsceID })
+        </td>
+    </tr>
+}
+
+</table>
+
+
+@*
+@if (Model.Sklep_has_Miejsces != null)
+{
+    <h3>Sklepy i miejsca</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Miejsce</th>
+            <th>Sklep</th>
+        </tr>
+
+        @foreach (var item in Model.Sklep_has_Miejsces)
+        {
+            string selectedRow = "";
+            if (item.Sklep_has_MiejsceID == ViewBag.Sklep_has_MiejsceID)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+  
+                
+                <td>
+                    @Html.ActionLink("Select", "Index", new { SklepID = item.SklepID })
+                </td>
+                <td>
+                    @item.MiejsceID
+                </td>
+                <td>
+                    @item.SklepID         
+                </td>
+            </tr>
+        }
+
+
+       
+    </table>
+}
+    *@
+@if (Model.Skleps != null)
+{
+
+
+    <h3>Sklepy w galerii</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Nazwa</th>
+            <th>Numer w galerii</th>
+            <th>Telefon</th>
+        </tr>
+
+
+        @foreach (var item in Model.Skleps)
+        {
+            string selectedRow = "";
+            if (item.SklepID == ViewBag.SklepID)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+
+                <td></td>
+                <td>
+                    @item.Nazwa
+                </td>
+                <td>
+                    @item.Numer
+                </td>
+                <td>
+                    @item.Telefon
+                </td>
+            </tr>
+
+        }
+
+
+    </table>
+}
+
+      

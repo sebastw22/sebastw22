@@ -4,7 +4,30 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="UzytkownicyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="UzytkownicyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Klient">
+          <Key>
+            <PropertyRef Name="KlientID" />
+          </Key>
+          <Property Name="KlientID" Type="int" Nullable="false" />
+          <Property Name="SYSUserID" Type="int" Nullable="false" />
+          <Property Name="Imię" Type="nchar" MaxLength="50" />
+          <Property Name="Nazwisko" Type="nchar" MaxLength="50" />
+          <Property Name="Adres" Type="nchar" MaxLength="50" />
+          <Property Name="Telefon" Type="nchar" MaxLength="40" />
+          <Property Name="Email" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Klient_has_Sklep">
+          <Key>
+            <PropertyRef Name="Klient_has_Sklep" />
+          </Key>
+          <Property Name="Klient_has_Sklep" Type="int" Nullable="false" />
+          <Property Name="SklepID" Type="int" Nullable="false" />
+          <Property Name="KlientID" Type="int" Nullable="false" />
+          <Property Name="Znizka1" Type="nchar" MaxLength="10" />
+          <Property Name="Znizka2" Type="nchar" MaxLength="10" />
+          <Property Name="Znizka3" Type="nchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="LOOKUPRole">
           <Key>
             <PropertyRef Name="LOOKUPRoleID" />
@@ -16,6 +39,59 @@
           <Property Name="RowCreatedDateTime" Type="datetime" />
           <Property Name="RowModifiedSYSUserID" Type="int" Nullable="false" />
           <Property Name="RowModifiedDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Miejsce">
+          <Key>
+            <PropertyRef Name="MiejsceID" />
+          </Key>
+          <Property Name="MiejsceID" Type="int" Nullable="false" />
+          <Property Name="Nazwa" Type="nchar" MaxLength="30" />
+          <Property Name="Adres" Type="nchar" MaxLength="50" />
+          <Property Name="Telefon" Type="nchar" MaxLength="10" />
+          <Property Name="Email" Type="nchar" MaxLength="30" />
+          <Property Name="Data_otwarcia" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Produkt">
+          <Key>
+            <PropertyRef Name="ProduktID" />
+          </Key>
+          <Property Name="ProduktID" Type="int" Nullable="false" />
+          <Property Name="Nazwa" Type="nchar" MaxLength="10" />
+          <Property Name="IloscOgolem" Type="int" />
+          <Property Name="Cena" Type="float" />
+          <Property Name="RodzajProdID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RodzajProd">
+          <Key>
+            <PropertyRef Name="RodzajProdID" />
+          </Key>
+          <Property Name="RodzajProdID" Type="int" Nullable="false" />
+          <Property Name="Nazwa" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sklep">
+          <Key>
+            <PropertyRef Name="SklepID" />
+          </Key>
+          <Property Name="SklepID" Type="int" Nullable="false" />
+          <Property Name="Nazwa" Type="nchar" MaxLength="50" />
+          <Property Name="Numer" Type="int" />
+          <Property Name="Telefon" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Sklep_has_Miejsce">
+          <Key>
+            <PropertyRef Name="Sklep_has_MiejsceID" />
+          </Key>
+          <Property Name="Sklep_has_MiejsceID" Type="int" Nullable="false" />
+          <Property Name="SklepID" Type="int" Nullable="false" />
+          <Property Name="MiejsceID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sklep_has_Produkt">
+          <Key>
+            <PropertyRef Name="Sklep_has_MiejsceID" />
+          </Key>
+          <Property Name="Sklep_has_MiejsceID" Type="int" Nullable="false" />
+          <Property Name="SklepID" Type="int" Nullable="false" />
+          <Property Name="ProduktID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SYSUser">
           <Key>
@@ -56,6 +132,111 @@
           <Property Name="RowModifiedSYSUserID" Type="int" Nullable="false" />
           <Property Name="RowModifiedDateTime" Type="datetime" />
         </EntityType>
+        <EntityType Name="SzczProd">
+          <Key>
+            <PropertyRef Name="SzczProdID" />
+          </Key>
+          <Property Name="SzczProdID" Type="int" Nullable="false" />
+          <Property Name="Rozmiar" Type="nchar" MaxLength="10" />
+          <Property Name="Ilosc" Type="nchar" MaxLength="10" />
+          <Property Name="ProduktID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Klient__SYSUserI__2A164134">
+          <End Role="SYSUser" Type="Self.SYSUser" Multiplicity="1" />
+          <End Role="Klient" Type="Self.Klient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSUser">
+              <PropertyRef Name="SYSUserID" />
+            </Principal>
+            <Dependent Role="Klient">
+              <PropertyRef Name="SYSUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Klient_ha__Klien__29221CFB">
+          <End Role="Klient" Type="Self.Klient" Multiplicity="1" />
+          <End Role="Klient_has_Sklep" Type="Self.Klient_has_Sklep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klient">
+              <PropertyRef Name="KlientID" />
+            </Principal>
+            <Dependent Role="Klient_has_Sklep">
+              <PropertyRef Name="KlientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Klient_ha__Sklep__73BA3083">
+          <End Role="Sklep" Type="Self.Sklep" Multiplicity="1" />
+          <End Role="Klient_has_Sklep" Type="Self.Klient_has_Sklep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sklep">
+              <PropertyRef Name="SklepID" />
+            </Principal>
+            <Dependent Role="Klient_has_Sklep">
+              <PropertyRef Name="SklepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Produkt__RodzajP__5CD6CB2B">
+          <End Role="RodzajProd" Type="Self.RodzajProd" Multiplicity="1" />
+          <End Role="Produkt" Type="Self.Produkt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RodzajProd">
+              <PropertyRef Name="RodzajProdID" />
+            </Principal>
+            <Dependent Role="Produkt">
+              <PropertyRef Name="RodzajProdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sklep_has__Miejs__6D0D32F4">
+          <End Role="Miejsce" Type="Self.Miejsce" Multiplicity="1" />
+          <End Role="Sklep_has_Miejsce" Type="Self.Sklep_has_Miejsce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Miejsce">
+              <PropertyRef Name="MiejsceID" />
+            </Principal>
+            <Dependent Role="Sklep_has_Miejsce">
+              <PropertyRef Name="MiejsceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sklep_has__Produ__03F0984C">
+          <End Role="Produkt" Type="Self.Produkt" Multiplicity="1" />
+          <End Role="Sklep_has_Produkt" Type="Self.Sklep_has_Produkt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produkt">
+              <PropertyRef Name="ProduktID" />
+            </Principal>
+            <Dependent Role="Sklep_has_Produkt">
+              <PropertyRef Name="ProduktID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sklep_has__Sklep__02FC7413">
+          <End Role="Sklep" Type="Self.Sklep" Multiplicity="1" />
+          <End Role="Sklep_has_Produkt" Type="Self.Sklep_has_Produkt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sklep">
+              <PropertyRef Name="SklepID" />
+            </Principal>
+            <Dependent Role="Sklep_has_Produkt">
+              <PropertyRef Name="SklepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sklep_has__Sklep__6C190EBB">
+          <End Role="Sklep" Type="Self.Sklep" Multiplicity="1" />
+          <End Role="Sklep_has_Miejsce" Type="Self.Sklep_has_Miejsce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sklep">
+              <PropertyRef Name="SklepID" />
+            </Principal>
+            <Dependent Role="Sklep_has_Miejsce">
+              <PropertyRef Name="SklepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__SYSUserPr__SYSUs__1BFD2C07">
           <End Role="SYSUser" Type="Self.SYSUser" Multiplicity="1" />
           <End Role="SYSUserProfile" Type="Self.SYSUserProfile" Multiplicity="*" />
@@ -92,11 +273,64 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__SzczProd__Produk__656C112C">
+          <End Role="Produkt" Type="Self.Produkt" Multiplicity="1" />
+          <End Role="SzczProd" Type="Self.SzczProd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produkt">
+              <PropertyRef Name="ProduktID" />
+            </Principal>
+            <Dependent Role="SzczProd">
+              <PropertyRef Name="ProduktID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="UzytkownicyModelStoreContainer">
+          <EntitySet Name="Klient" EntityType="Self.Klient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Klient_has_Sklep" EntityType="Self.Klient_has_Sklep" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOOKUPRole" EntityType="Self.LOOKUPRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Miejsce" EntityType="Self.Miejsce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produkt" EntityType="Self.Produkt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RodzajProd" EntityType="Self.RodzajProd" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sklep" EntityType="Self.Sklep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sklep_has_Miejsce" EntityType="Self.Sklep_has_Miejsce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sklep_has_Produkt" EntityType="Self.Sklep_has_Produkt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYSUser" EntityType="Self.SYSUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYSUserProfile" EntityType="Self.SYSUserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SYSUserRole" EntityType="Self.SYSUserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SzczProd" EntityType="Self.SzczProd" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Klient__SYSUserI__2A164134" Association="Self.FK__Klient__SYSUserI__2A164134">
+            <End Role="SYSUser" EntitySet="SYSUser" />
+            <End Role="Klient" EntitySet="Klient" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Klient_ha__Klien__29221CFB" Association="Self.FK__Klient_ha__Klien__29221CFB">
+            <End Role="Klient" EntitySet="Klient" />
+            <End Role="Klient_has_Sklep" EntitySet="Klient_has_Sklep" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Klient_ha__Sklep__73BA3083" Association="Self.FK__Klient_ha__Sklep__73BA3083">
+            <End Role="Sklep" EntitySet="Sklep" />
+            <End Role="Klient_has_Sklep" EntitySet="Klient_has_Sklep" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Produkt__RodzajP__5CD6CB2B" Association="Self.FK__Produkt__RodzajP__5CD6CB2B">
+            <End Role="RodzajProd" EntitySet="RodzajProd" />
+            <End Role="Produkt" EntitySet="Produkt" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sklep_has__Miejs__6D0D32F4" Association="Self.FK__Sklep_has__Miejs__6D0D32F4">
+            <End Role="Miejsce" EntitySet="Miejsce" />
+            <End Role="Sklep_has_Miejsce" EntitySet="Sklep_has_Miejsce" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sklep_has__Produ__03F0984C" Association="Self.FK__Sklep_has__Produ__03F0984C">
+            <End Role="Produkt" EntitySet="Produkt" />
+            <End Role="Sklep_has_Produkt" EntitySet="Sklep_has_Produkt" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sklep_has__Sklep__02FC7413" Association="Self.FK__Sklep_has__Sklep__02FC7413">
+            <End Role="Sklep" EntitySet="Sklep" />
+            <End Role="Sklep_has_Produkt" EntitySet="Sklep_has_Produkt" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sklep_has__Sklep__6C190EBB" Association="Self.FK__Sklep_has__Sklep__6C190EBB">
+            <End Role="Sklep" EntitySet="Sklep" />
+            <End Role="Sklep_has_Miejsce" EntitySet="Sklep_has_Miejsce" />
+          </AssociationSet>
           <AssociationSet Name="FK__SYSUserPr__SYSUs__1BFD2C07" Association="Self.FK__SYSUserPr__SYSUs__1BFD2C07">
             <End Role="SYSUser" EntitySet="SYSUser" />
             <End Role="SYSUserProfile" EntitySet="SYSUserProfile" />
@@ -109,12 +343,105 @@
             <End Role="SYSUser" EntitySet="SYSUser" />
             <End Role="SYSUserRole" EntitySet="SYSUserRole" />
           </AssociationSet>
+          <AssociationSet Name="FK__SzczProd__Produk__656C112C" Association="Self.FK__SzczProd__Produk__656C112C">
+            <End Role="Produkt" EntitySet="Produkt" />
+            <End Role="SzczProd" EntitySet="SzczProd" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UzytkownicyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="UzytkownicyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Klients" EntityType="UzytkownicyModel.Klient" />
+          <EntitySet Name="Klient_has_Sklep" EntityType="UzytkownicyModel.Klient_has_Sklep" />
+          <EntitySet Name="LOOKUPRoles" EntityType="UzytkownicyModel.LOOKUPRole" />
+          <EntitySet Name="Miejsces" EntityType="UzytkownicyModel.Miejsce" />
+          <EntitySet Name="Produkts" EntityType="UzytkownicyModel.Produkt" />
+          <EntitySet Name="RodzajProds" EntityType="UzytkownicyModel.RodzajProd" />
+          <EntitySet Name="Skleps" EntityType="UzytkownicyModel.Sklep" />
+          <EntitySet Name="Sklep_has_Miejsce" EntityType="UzytkownicyModel.Sklep_has_Miejsce" />
+          <EntitySet Name="Sklep_has_Produkt" EntityType="UzytkownicyModel.Sklep_has_Produkt" />
+          <EntitySet Name="SYSUsers" EntityType="UzytkownicyModel.SYSUser" />
+          <EntitySet Name="SYSUserProfiles" EntityType="UzytkownicyModel.SYSUserProfile" />
+          <EntitySet Name="SYSUserRoles" EntityType="UzytkownicyModel.SYSUserRole" />
+          <EntitySet Name="SzczProds" EntityType="UzytkownicyModel.SzczProd" />
+          <AssociationSet Name="FK__Klient__SYSUserI__2A164134" Association="UzytkownicyModel.FK__Klient__SYSUserI__2A164134">
+            <End Role="SYSUser" EntitySet="SYSUsers" />
+            <End Role="Klient" EntitySet="Klients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Klient_ha__Klien__29221CFB" Association="UzytkownicyModel.FK__Klient_ha__Klien__29221CFB">
+            <End Role="Klient" EntitySet="Klients" />
+            <End Role="Klient_has_Sklep" EntitySet="Klient_has_Sklep" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Klient_ha__Sklep__73BA3083" Association="UzytkownicyModel.FK__Klient_ha__Sklep__73BA3083">
+            <End Role="Sklep" EntitySet="Skleps" />
+            <End Role="Klient_has_Sklep" EntitySet="Klient_has_Sklep" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSUserRo__LOOKU__21B6055D" Association="UzytkownicyModel.FK__SYSUserRo__LOOKU__21B6055D">
+            <End Role="LOOKUPRole" EntitySet="LOOKUPRoles" />
+            <End Role="SYSUserRole" EntitySet="SYSUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sklep_has__Miejs__6D0D32F4" Association="UzytkownicyModel.FK__Sklep_has__Miejs__6D0D32F4">
+            <End Role="Miejsce" EntitySet="Miejsces" />
+            <End Role="Sklep_has_Miejsce" EntitySet="Sklep_has_Miejsce" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Produkt__RodzajP__5CD6CB2B" Association="UzytkownicyModel.FK__Produkt__RodzajP__5CD6CB2B">
+            <End Role="RodzajProd" EntitySet="RodzajProds" />
+            <End Role="Produkt" EntitySet="Produkts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sklep_has__Produ__03F0984C" Association="UzytkownicyModel.FK__Sklep_has__Produ__03F0984C">
+            <End Role="Produkt" EntitySet="Produkts" />
+            <End Role="Sklep_has_Produkt" EntitySet="Sklep_has_Produkt" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SzczProd__Produk__656C112C" Association="UzytkownicyModel.FK__SzczProd__Produk__656C112C">
+            <End Role="Produkt" EntitySet="Produkts" />
+            <End Role="SzczProd" EntitySet="SzczProds" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sklep_has__Sklep__02FC7413" Association="UzytkownicyModel.FK__Sklep_has__Sklep__02FC7413">
+            <End Role="Sklep" EntitySet="Skleps" />
+            <End Role="Sklep_has_Produkt" EntitySet="Sklep_has_Produkt" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sklep_has__Sklep__6C190EBB" Association="UzytkownicyModel.FK__Sklep_has__Sklep__6C190EBB">
+            <End Role="Sklep" EntitySet="Skleps" />
+            <End Role="Sklep_has_Miejsce" EntitySet="Sklep_has_Miejsce" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSUserPr__SYSUs__1BFD2C07" Association="UzytkownicyModel.FK__SYSUserPr__SYSUs__1BFD2C07">
+            <End Role="SYSUser" EntitySet="SYSUsers" />
+            <End Role="SYSUserProfile" EntitySet="SYSUserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SYSUserRo__SYSUs__22AA2996" Association="UzytkownicyModel.FK__SYSUserRo__SYSUs__22AA2996">
+            <End Role="SYSUser" EntitySet="SYSUsers" />
+            <End Role="SYSUserRole" EntitySet="SYSUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Klient">
+          <Key>
+            <PropertyRef Name="KlientID" />
+          </Key>
+          <Property Name="KlientID" Type="Int32" Nullable="false" />
+          <Property Name="SYSUserID" Type="Int32" Nullable="false" />
+          <Property Name="Imię" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Nazwisko" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="40" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="SYSUser" Relationship="UzytkownicyModel.FK__Klient__SYSUserI__2A164134" FromRole="Klient" ToRole="SYSUser" />
+          <NavigationProperty Name="Klient_has_Sklep" Relationship="UzytkownicyModel.FK__Klient_ha__Klien__29221CFB" FromRole="Klient" ToRole="Klient_has_Sklep" />
+        </EntityType>
+        <EntityType Name="Klient_has_Sklep">
+          <Key>
+            <PropertyRef Name="Klient_has_Sklep1" />
+          </Key>
+          <Property Name="Klient_has_Sklep1" Type="Int32" Nullable="false" />
+          <Property Name="SklepID" Type="Int32" Nullable="false" />
+          <Property Name="KlientID" Type="Int32" Nullable="false" />
+          <Property Name="Znizka1" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Znizka2" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Znizka3" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Klient" Relationship="UzytkownicyModel.FK__Klient_ha__Klien__29221CFB" FromRole="Klient_has_Sklep" ToRole="Klient" />
+          <NavigationProperty Name="Sklep" Relationship="UzytkownicyModel.FK__Klient_ha__Sklep__73BA3083" FromRole="Klient_has_Sklep" ToRole="Sklep" />
+        </EntityType>
         <EntityType Name="LOOKUPRole">
           <Key>
             <PropertyRef Name="LOOKUPRoleID" />
@@ -126,21 +453,87 @@
           <Property Name="RowCreatedDateTime" Type="DateTime" Precision="3" />
           <Property Name="RowModifiedSYSUserID" Type="Int32" Nullable="false" />
           <Property Name="RowModifiedDateTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="SYSUserRoles" Relationship="Self.FK__SYSUserRo__LOOKU__21B6055D" FromRole="LOOKUPRole" ToRole="SYSUserRole" />
+          <NavigationProperty Name="SYSUserRoles" Relationship="UzytkownicyModel.FK__SYSUserRo__LOOKU__21B6055D" FromRole="LOOKUPRole" ToRole="SYSUserRole" />
+        </EntityType>
+        <EntityType Name="Miejsce">
+          <Key>
+            <PropertyRef Name="MiejsceID" />
+          </Key>
+          <Property Name="MiejsceID" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="Data_otwarcia" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Sklep_has_Miejsce" Relationship="UzytkownicyModel.FK__Sklep_has__Miejs__6D0D32F4" FromRole="Miejsce" ToRole="Sklep_has_Miejsce" />
+        </EntityType>
+        <EntityType Name="Produkt">
+          <Key>
+            <PropertyRef Name="ProduktID" />
+          </Key>
+          <Property Name="ProduktID" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IloscOgolem" Type="Int32" />
+          <Property Name="Cena" Type="Double" />
+          <Property Name="RodzajProdID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="RodzajProd" Relationship="UzytkownicyModel.FK__Produkt__RodzajP__5CD6CB2B" FromRole="Produkt" ToRole="RodzajProd" />
+          <NavigationProperty Name="Sklep_has_Produkt" Relationship="UzytkownicyModel.FK__Sklep_has__Produ__03F0984C" FromRole="Produkt" ToRole="Sklep_has_Produkt" />
+          <NavigationProperty Name="SzczProds" Relationship="UzytkownicyModel.FK__SzczProd__Produk__656C112C" FromRole="Produkt" ToRole="SzczProd" />
+        </EntityType>
+        <EntityType Name="RodzajProd">
+          <Key>
+            <PropertyRef Name="RodzajProdID" />
+          </Key>
+          <Property Name="RodzajProdID" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Produkts" Relationship="UzytkownicyModel.FK__Produkt__RodzajP__5CD6CB2B" FromRole="RodzajProd" ToRole="Produkt" />
+        </EntityType>
+        <EntityType Name="Sklep">
+          <Key>
+            <PropertyRef Name="SklepID" />
+          </Key>
+          <Property Name="SklepID" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Numer" Type="Int32" />
+          <Property Name="Telefon" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Klient_has_Sklep" Relationship="UzytkownicyModel.FK__Klient_ha__Sklep__73BA3083" FromRole="Sklep" ToRole="Klient_has_Sklep" />
+          <NavigationProperty Name="Sklep_has_Produkt" Relationship="UzytkownicyModel.FK__Sklep_has__Sklep__02FC7413" FromRole="Sklep" ToRole="Sklep_has_Produkt" />
+          <NavigationProperty Name="Sklep_has_Miejsce" Relationship="UzytkownicyModel.FK__Sklep_has__Sklep__6C190EBB" FromRole="Sklep" ToRole="Sklep_has_Miejsce" />
+        </EntityType>
+        <EntityType Name="Sklep_has_Miejsce">
+          <Key>
+            <PropertyRef Name="Sklep_has_MiejsceID" />
+          </Key>
+          <Property Name="Sklep_has_MiejsceID" Type="Int32" Nullable="false" />
+          <Property Name="SklepID" Type="Int32" Nullable="false" />
+          <Property Name="MiejsceID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Miejsce" Relationship="UzytkownicyModel.FK__Sklep_has__Miejs__6D0D32F4" FromRole="Sklep_has_Miejsce" ToRole="Miejsce" />
+          <NavigationProperty Name="Sklep" Relationship="UzytkownicyModel.FK__Sklep_has__Sklep__6C190EBB" FromRole="Sklep_has_Miejsce" ToRole="Sklep" />
+        </EntityType>
+        <EntityType Name="Sklep_has_Produkt">
+          <Key>
+            <PropertyRef Name="Sklep_has_MiejsceID" />
+          </Key>
+          <Property Name="Sklep_has_MiejsceID" Type="Int32" Nullable="false" />
+          <Property Name="SklepID" Type="Int32" Nullable="false" />
+          <Property Name="ProduktID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produkt" Relationship="UzytkownicyModel.FK__Sklep_has__Produ__03F0984C" FromRole="Sklep_has_Produkt" ToRole="Produkt" />
+          <NavigationProperty Name="Sklep" Relationship="UzytkownicyModel.FK__Sklep_has__Sklep__02FC7413" FromRole="Sklep_has_Produkt" ToRole="Sklep" />
         </EntityType>
         <EntityType Name="SYSUser">
           <Key>
             <PropertyRef Name="SYSUserID" />
           </Key>
           <Property Name="SYSUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LoginName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PasswordEncryptedText" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordEncryptedText" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="RowCreatedSYSUserID" Type="Int32" Nullable="false" />
           <Property Name="RowCreatedDateTime" Type="DateTime" Precision="3" />
           <Property Name="RowModifiedSYSUserID" Type="Int32" Nullable="false" />
           <Property Name="RowMOdifiedDateTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="SYSUserProfiles" Relationship="Self.FK__SYSUserPr__SYSUs__1BFD2C07" FromRole="SYSUser" ToRole="SYSUserProfile" />
-          <NavigationProperty Name="SYSUserRoles" Relationship="Self.FK__SYSUserRo__SYSUs__22AA2996" FromRole="SYSUser" ToRole="SYSUserRole" />
+          <NavigationProperty Name="Klients" Relationship="UzytkownicyModel.FK__Klient__SYSUserI__2A164134" FromRole="SYSUser" ToRole="Klient" />
+          <NavigationProperty Name="SYSUserProfiles" Relationship="UzytkownicyModel.FK__SYSUserPr__SYSUs__1BFD2C07" FromRole="SYSUser" ToRole="SYSUserProfile" />
+          <NavigationProperty Name="SYSUserRoles" Relationship="UzytkownicyModel.FK__SYSUserRo__SYSUs__22AA2996" FromRole="SYSUser" ToRole="SYSUserRole" />
         </EntityType>
         <EntityType Name="SYSUserProfile">
           <Key>
@@ -148,14 +541,14 @@
           </Key>
           <Property Name="SYSUserProfileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SYSUserID" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="RowCreatedSYSUserID" Type="Int32" Nullable="false" />
           <Property Name="RowCreatedDateTime" Type="DateTime" Precision="3" />
           <Property Name="RowModifiedSYSUserID" Type="Int32" Nullable="false" />
           <Property Name="RowModifiedDateTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="SYSUser" Relationship="Self.FK__SYSUserPr__SYSUs__1BFD2C07" FromRole="SYSUserProfile" ToRole="SYSUser" />
+          <NavigationProperty Name="SYSUser" Relationship="UzytkownicyModel.FK__SYSUserPr__SYSUs__1BFD2C07" FromRole="SYSUserProfile" ToRole="SYSUser" />
         </EntityType>
         <EntityType Name="SYSUserRole">
           <Key>
@@ -169,12 +562,58 @@
           <Property Name="RowCreatedDateTime" Type="DateTime" Precision="3" />
           <Property Name="RowModifiedSYSUserID" Type="Int32" Nullable="false" />
           <Property Name="RowModifiedDateTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="LOOKUPRole" Relationship="Self.FK__SYSUserRo__LOOKU__21B6055D" FromRole="SYSUserRole" ToRole="LOOKUPRole" />
-          <NavigationProperty Name="SYSUser" Relationship="Self.FK__SYSUserRo__SYSUs__22AA2996" FromRole="SYSUserRole" ToRole="SYSUser" />
+          <NavigationProperty Name="LOOKUPRole" Relationship="UzytkownicyModel.FK__SYSUserRo__LOOKU__21B6055D" FromRole="SYSUserRole" ToRole="LOOKUPRole" />
+          <NavigationProperty Name="SYSUser" Relationship="UzytkownicyModel.FK__SYSUserRo__SYSUs__22AA2996" FromRole="SYSUserRole" ToRole="SYSUser" />
         </EntityType>
+        <EntityType Name="SzczProd">
+          <Key>
+            <PropertyRef Name="SzczProdID" />
+          </Key>
+          <Property Name="SzczProdID" Type="Int32" Nullable="false" />
+          <Property Name="Rozmiar" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Ilosc" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ProduktID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Produkt" Relationship="UzytkownicyModel.FK__SzczProd__Produk__656C112C" FromRole="SzczProd" ToRole="Produkt" />
+        </EntityType>
+        <Association Name="FK__Klient__SYSUserI__2A164134">
+          <End Type="UzytkownicyModel.SYSUser" Role="SYSUser" Multiplicity="1" />
+          <End Type="UzytkownicyModel.Klient" Role="Klient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSUser">
+              <PropertyRef Name="SYSUserID" />
+            </Principal>
+            <Dependent Role="Klient">
+              <PropertyRef Name="SYSUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Klient_ha__Klien__29221CFB">
+          <End Type="UzytkownicyModel.Klient" Role="Klient" Multiplicity="1" />
+          <End Type="UzytkownicyModel.Klient_has_Sklep" Role="Klient_has_Sklep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klient">
+              <PropertyRef Name="KlientID" />
+            </Principal>
+            <Dependent Role="Klient_has_Sklep">
+              <PropertyRef Name="KlientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Klient_ha__Sklep__73BA3083">
+          <End Type="UzytkownicyModel.Sklep" Role="Sklep" Multiplicity="1" />
+          <End Type="UzytkownicyModel.Klient_has_Sklep" Role="Klient_has_Sklep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sklep">
+              <PropertyRef Name="SklepID" />
+            </Principal>
+            <Dependent Role="Klient_has_Sklep">
+              <PropertyRef Name="SklepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__SYSUserRo__LOOKU__21B6055D">
-          <End Role="LOOKUPRole" Type="Self.LOOKUPRole" Multiplicity="1" />
-          <End Role="SYSUserRole" Type="Self.SYSUserRole" Multiplicity="*" />
+          <End Type="UzytkownicyModel.LOOKUPRole" Role="LOOKUPRole" Multiplicity="1" />
+          <End Type="UzytkownicyModel.SYSUserRole" Role="SYSUserRole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="LOOKUPRole">
               <PropertyRef Name="LOOKUPRoleID" />
@@ -184,9 +623,81 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Sklep_has__Miejs__6D0D32F4">
+          <End Type="UzytkownicyModel.Miejsce" Role="Miejsce" Multiplicity="1" />
+          <End Type="UzytkownicyModel.Sklep_has_Miejsce" Role="Sklep_has_Miejsce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Miejsce">
+              <PropertyRef Name="MiejsceID" />
+            </Principal>
+            <Dependent Role="Sklep_has_Miejsce">
+              <PropertyRef Name="MiejsceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Produkt__RodzajP__5CD6CB2B">
+          <End Type="UzytkownicyModel.RodzajProd" Role="RodzajProd" Multiplicity="1" />
+          <End Type="UzytkownicyModel.Produkt" Role="Produkt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RodzajProd">
+              <PropertyRef Name="RodzajProdID" />
+            </Principal>
+            <Dependent Role="Produkt">
+              <PropertyRef Name="RodzajProdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sklep_has__Produ__03F0984C">
+          <End Type="UzytkownicyModel.Produkt" Role="Produkt" Multiplicity="1" />
+          <End Type="UzytkownicyModel.Sklep_has_Produkt" Role="Sklep_has_Produkt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produkt">
+              <PropertyRef Name="ProduktID" />
+            </Principal>
+            <Dependent Role="Sklep_has_Produkt">
+              <PropertyRef Name="ProduktID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SzczProd__Produk__656C112C">
+          <End Type="UzytkownicyModel.Produkt" Role="Produkt" Multiplicity="1" />
+          <End Type="UzytkownicyModel.SzczProd" Role="SzczProd" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produkt">
+              <PropertyRef Name="ProduktID" />
+            </Principal>
+            <Dependent Role="SzczProd">
+              <PropertyRef Name="ProduktID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sklep_has__Sklep__02FC7413">
+          <End Type="UzytkownicyModel.Sklep" Role="Sklep" Multiplicity="1" />
+          <End Type="UzytkownicyModel.Sklep_has_Produkt" Role="Sklep_has_Produkt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sklep">
+              <PropertyRef Name="SklepID" />
+            </Principal>
+            <Dependent Role="Sklep_has_Produkt">
+              <PropertyRef Name="SklepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sklep_has__Sklep__6C190EBB">
+          <End Type="UzytkownicyModel.Sklep" Role="Sklep" Multiplicity="1" />
+          <End Type="UzytkownicyModel.Sklep_has_Miejsce" Role="Sklep_has_Miejsce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sklep">
+              <PropertyRef Name="SklepID" />
+            </Principal>
+            <Dependent Role="Sklep_has_Miejsce">
+              <PropertyRef Name="SklepID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__SYSUserPr__SYSUs__1BFD2C07">
-          <End Role="SYSUser" Type="Self.SYSUser" Multiplicity="1" />
-          <End Role="SYSUserProfile" Type="Self.SYSUserProfile" Multiplicity="*" />
+          <End Type="UzytkownicyModel.SYSUser" Role="SYSUser" Multiplicity="1" />
+          <End Type="UzytkownicyModel.SYSUserProfile" Role="SYSUserProfile" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SYSUser">
               <PropertyRef Name="SYSUserID" />
@@ -197,8 +708,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__SYSUserRo__SYSUs__22AA2996">
-          <End Role="SYSUser" Type="Self.SYSUser" Multiplicity="1" />
-          <End Role="SYSUserRole" Type="Self.SYSUserRole" Multiplicity="*" />
+          <End Type="UzytkownicyModel.SYSUser" Role="SYSUser" Multiplicity="1" />
+          <End Type="UzytkownicyModel.SYSUserRole" Role="SYSUserRole" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SYSUser">
               <PropertyRef Name="SYSUserID" />
@@ -208,82 +719,158 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="UzytkownicyEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="LOOKUPRoles" EntityType="Self.LOOKUPRole" />
-          <EntitySet Name="SYSUsers" EntityType="Self.SYSUser" />
-          <EntitySet Name="SYSUserProfiles" EntityType="Self.SYSUserProfile" />
-          <EntitySet Name="SYSUserRoles" EntityType="Self.SYSUserRole" />
-          <AssociationSet Name="FK__SYSUserRo__LOOKU__21B6055D" Association="Self.FK__SYSUserRo__LOOKU__21B6055D">
-            <End Role="LOOKUPRole" EntitySet="LOOKUPRoles" />
-            <End Role="SYSUserRole" EntitySet="SYSUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SYSUserPr__SYSUs__1BFD2C07" Association="Self.FK__SYSUserPr__SYSUs__1BFD2C07">
-            <End Role="SYSUser" EntitySet="SYSUsers" />
-            <End Role="SYSUserProfile" EntitySet="SYSUserProfiles" />
-          </AssociationSet>
-          <AssociationSet Name="FK__SYSUserRo__SYSUs__22AA2996" Association="Self.FK__SYSUserRo__SYSUs__22AA2996">
-            <End Role="SYSUser" EntitySet="SYSUsers" />
-            <End Role="SYSUserRole" EntitySet="SYSUserRoles" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="UzytkownicyModelStoreContainer" CdmEntityContainer="UzytkownicyEntities">
+          <EntitySetMapping Name="Klients">
+            <EntityTypeMapping TypeName="UzytkownicyModel.Klient">
+              <MappingFragment StoreEntitySet="Klient">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+                <ScalarProperty Name="Imię" ColumnName="Imię" />
+                <ScalarProperty Name="SYSUserID" ColumnName="SYSUserID" />
+                <ScalarProperty Name="KlientID" ColumnName="KlientID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Klient_has_Sklep">
+            <EntityTypeMapping TypeName="UzytkownicyModel.Klient_has_Sklep">
+              <MappingFragment StoreEntitySet="Klient_has_Sklep">
+                <ScalarProperty Name="Znizka3" ColumnName="Znizka3" />
+                <ScalarProperty Name="Znizka2" ColumnName="Znizka2" />
+                <ScalarProperty Name="Znizka1" ColumnName="Znizka1" />
+                <ScalarProperty Name="KlientID" ColumnName="KlientID" />
+                <ScalarProperty Name="SklepID" ColumnName="SklepID" />
+                <ScalarProperty Name="Klient_has_Sklep1" ColumnName="Klient_has_Sklep" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LOOKUPRoles">
             <EntityTypeMapping TypeName="UzytkownicyModel.LOOKUPRole">
               <MappingFragment StoreEntitySet="LOOKUPRole">
-                <ScalarProperty Name="LOOKUPRoleID" ColumnName="LOOKUPRoleID" />
-                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
-                <ScalarProperty Name="RowCreatedSYSUserID" ColumnName="RowCreatedSYSUserID" />
-                <ScalarProperty Name="RowCreatedDateTime" ColumnName="RowCreatedDateTime" />
-                <ScalarProperty Name="RowModifiedSYSUserID" ColumnName="RowModifiedSYSUserID" />
                 <ScalarProperty Name="RowModifiedDateTime" ColumnName="RowModifiedDateTime" />
+                <ScalarProperty Name="RowModifiedSYSUserID" ColumnName="RowModifiedSYSUserID" />
+                <ScalarProperty Name="RowCreatedDateTime" ColumnName="RowCreatedDateTime" />
+                <ScalarProperty Name="RowCreatedSYSUserID" ColumnName="RowCreatedSYSUserID" />
+                <ScalarProperty Name="RoleDescription" ColumnName="RoleDescription" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="LOOKUPRoleID" ColumnName="LOOKUPRoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Miejsces">
+            <EntityTypeMapping TypeName="UzytkownicyModel.Miejsce">
+              <MappingFragment StoreEntitySet="Miejsce">
+                <ScalarProperty Name="Data_otwarcia" ColumnName="Data_otwarcia" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+                <ScalarProperty Name="MiejsceID" ColumnName="MiejsceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produkts">
+            <EntityTypeMapping TypeName="UzytkownicyModel.Produkt">
+              <MappingFragment StoreEntitySet="Produkt">
+                <ScalarProperty Name="RodzajProdID" ColumnName="RodzajProdID" />
+                <ScalarProperty Name="Cena" ColumnName="Cena" />
+                <ScalarProperty Name="IloscOgolem" ColumnName="IloscOgolem" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+                <ScalarProperty Name="ProduktID" ColumnName="ProduktID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RodzajProds">
+            <EntityTypeMapping TypeName="UzytkownicyModel.RodzajProd">
+              <MappingFragment StoreEntitySet="RodzajProd">
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+                <ScalarProperty Name="RodzajProdID" ColumnName="RodzajProdID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skleps">
+            <EntityTypeMapping TypeName="UzytkownicyModel.Sklep">
+              <MappingFragment StoreEntitySet="Sklep">
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Numer" ColumnName="Numer" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+                <ScalarProperty Name="SklepID" ColumnName="SklepID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sklep_has_Miejsce">
+            <EntityTypeMapping TypeName="UzytkownicyModel.Sklep_has_Miejsce">
+              <MappingFragment StoreEntitySet="Sklep_has_Miejsce">
+                <ScalarProperty Name="MiejsceID" ColumnName="MiejsceID" />
+                <ScalarProperty Name="SklepID" ColumnName="SklepID" />
+                <ScalarProperty Name="Sklep_has_MiejsceID" ColumnName="Sklep_has_MiejsceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sklep_has_Produkt">
+            <EntityTypeMapping TypeName="UzytkownicyModel.Sklep_has_Produkt">
+              <MappingFragment StoreEntitySet="Sklep_has_Produkt">
+                <ScalarProperty Name="ProduktID" ColumnName="ProduktID" />
+                <ScalarProperty Name="SklepID" ColumnName="SklepID" />
+                <ScalarProperty Name="Sklep_has_MiejsceID" ColumnName="Sklep_has_MiejsceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SYSUsers">
             <EntityTypeMapping TypeName="UzytkownicyModel.SYSUser">
               <MappingFragment StoreEntitySet="SYSUser">
-                <ScalarProperty Name="SYSUserID" ColumnName="SYSUserID" />
-                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
-                <ScalarProperty Name="PasswordEncryptedText" ColumnName="PasswordEncryptedText" />
-                <ScalarProperty Name="RowCreatedSYSUserID" ColumnName="RowCreatedSYSUserID" />
-                <ScalarProperty Name="RowCreatedDateTime" ColumnName="RowCreatedDateTime" />
-                <ScalarProperty Name="RowModifiedSYSUserID" ColumnName="RowModifiedSYSUserID" />
                 <ScalarProperty Name="RowMOdifiedDateTime" ColumnName="RowMOdifiedDateTime" />
+                <ScalarProperty Name="RowModifiedSYSUserID" ColumnName="RowModifiedSYSUserID" />
+                <ScalarProperty Name="RowCreatedDateTime" ColumnName="RowCreatedDateTime" />
+                <ScalarProperty Name="RowCreatedSYSUserID" ColumnName="RowCreatedSYSUserID" />
+                <ScalarProperty Name="PasswordEncryptedText" ColumnName="PasswordEncryptedText" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="SYSUserID" ColumnName="SYSUserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SYSUserProfiles">
             <EntityTypeMapping TypeName="UzytkownicyModel.SYSUserProfile">
               <MappingFragment StoreEntitySet="SYSUserProfile">
-                <ScalarProperty Name="SYSUserProfileID" ColumnName="SYSUserProfileID" />
-                <ScalarProperty Name="SYSUserID" ColumnName="SYSUserID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="RowCreatedSYSUserID" ColumnName="RowCreatedSYSUserID" />
-                <ScalarProperty Name="RowCreatedDateTime" ColumnName="RowCreatedDateTime" />
-                <ScalarProperty Name="RowModifiedSYSUserID" ColumnName="RowModifiedSYSUserID" />
                 <ScalarProperty Name="RowModifiedDateTime" ColumnName="RowModifiedDateTime" />
+                <ScalarProperty Name="RowModifiedSYSUserID" ColumnName="RowModifiedSYSUserID" />
+                <ScalarProperty Name="RowCreatedDateTime" ColumnName="RowCreatedDateTime" />
+                <ScalarProperty Name="RowCreatedSYSUserID" ColumnName="RowCreatedSYSUserID" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SYSUserID" ColumnName="SYSUserID" />
+                <ScalarProperty Name="SYSUserProfileID" ColumnName="SYSUserProfileID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SYSUserRoles">
             <EntityTypeMapping TypeName="UzytkownicyModel.SYSUserRole">
               <MappingFragment StoreEntitySet="SYSUserRole">
-                <ScalarProperty Name="SYSUserRoleID" ColumnName="SYSUserRoleID" />
-                <ScalarProperty Name="SYSUserID" ColumnName="SYSUserID" />
-                <ScalarProperty Name="LOOKUPRoleID" ColumnName="LOOKUPRoleID" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="RowCreatedSYSUserID" ColumnName="RowCreatedSYSUserID" />
-                <ScalarProperty Name="RowCreatedDateTime" ColumnName="RowCreatedDateTime" />
-                <ScalarProperty Name="RowModifiedSYSUserID" ColumnName="RowModifiedSYSUserID" />
                 <ScalarProperty Name="RowModifiedDateTime" ColumnName="RowModifiedDateTime" />
+                <ScalarProperty Name="RowModifiedSYSUserID" ColumnName="RowModifiedSYSUserID" />
+                <ScalarProperty Name="RowCreatedDateTime" ColumnName="RowCreatedDateTime" />
+                <ScalarProperty Name="RowCreatedSYSUserID" ColumnName="RowCreatedSYSUserID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="LOOKUPRoleID" ColumnName="LOOKUPRoleID" />
+                <ScalarProperty Name="SYSUserID" ColumnName="SYSUserID" />
+                <ScalarProperty Name="SYSUserRoleID" ColumnName="SYSUserRoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SzczProds">
+            <EntityTypeMapping TypeName="UzytkownicyModel.SzczProd">
+              <MappingFragment StoreEntitySet="SzczProd">
+                <ScalarProperty Name="ProduktID" ColumnName="ProduktID" />
+                <ScalarProperty Name="Ilosc" ColumnName="Ilosc" />
+                <ScalarProperty Name="Rozmiar" ColumnName="Rozmiar" />
+                <ScalarProperty Name="SzczProdID" ColumnName="SzczProdID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -4,14 +4,32 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="806368c4c3db4527b50f9c47218ac82d" Name="Diagram1">
-        <EntityTypeShape EntityType="UzytkownicyModel.LOOKUPRole" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="UzytkownicyModel.SYSUser" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="UzytkownicyModel.SYSUserProfile" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="UzytkownicyModel.SYSUserRole" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
-        <AssociationConnector Association="UzytkownicyModel.FK__SYSUserRo__LOOKU__21B6055D" ManuallyRouted="false" />
-        <AssociationConnector Association="UzytkownicyModel.FK__SYSUserPr__SYSUs__1BFD2C07" ManuallyRouted="false" />
-        <AssociationConnector Association="UzytkownicyModel.FK__SYSUserRo__SYSUs__22AA2996" ManuallyRouted="false" />
+      <Diagram DiagramId="806368c4c3db4527b50f9c47218ac82d" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="UzytkownicyModel.Klient" Width="1.5" PointX="2.25" PointY="9.25" />
+        <EntityTypeShape EntityType="UzytkownicyModel.Klient_has_Sklep" Width="1.5" PointX="5" PointY="9.25" />
+        <EntityTypeShape EntityType="UzytkownicyModel.LOOKUPRole" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="UzytkownicyModel.Miejsce" Width="1.5" PointX="7.75" PointY="12.625" />
+        <EntityTypeShape EntityType="UzytkownicyModel.Produkt" Width="1.5" PointX="9.5" PointY="5.125" />
+        <EntityTypeShape EntityType="UzytkownicyModel.RodzajProd" Width="1.5" PointX="7.25" PointY="5.625" />
+        <EntityTypeShape EntityType="UzytkownicyModel.Sklep" Width="1.5" PointX="2.875" PointY="12.25" />
+        <EntityTypeShape EntityType="UzytkownicyModel.Sklep_has_Miejsce" Width="1.5" PointX="5.375" PointY="12.625" />
+        <EntityTypeShape EntityType="UzytkownicyModel.Sklep_has_Produkt" Width="1.5" PointX="9.625" PointY="9.5" />
+        <EntityTypeShape EntityType="UzytkownicyModel.SYSUser" Width="1.5" PointX="0.75" PointY="4.875" />
+        <EntityTypeShape EntityType="UzytkownicyModel.SYSUserProfile" Width="1.5" PointX="5.25" PointY="6" />
+        <EntityTypeShape EntityType="UzytkownicyModel.SYSUserRole" Width="1.5" PointX="3" PointY="2.875" />
+        <EntityTypeShape EntityType="UzytkownicyModel.SzczProd" Width="1.5" PointX="11.75" PointY="5.375" />
+        <AssociationConnector Association="UzytkownicyModel.FK__Klient__SYSUserI__2A164134" />
+        <AssociationConnector Association="UzytkownicyModel.FK__Klient_ha__Klien__29221CFB" />
+        <AssociationConnector Association="UzytkownicyModel.FK__Klient_ha__Sklep__73BA3083" />
+        <AssociationConnector Association="UzytkownicyModel.FK__SYSUserRo__LOOKU__21B6055D" />
+        <AssociationConnector Association="UzytkownicyModel.FK__Sklep_has__Miejs__6D0D32F4" />
+        <AssociationConnector Association="UzytkownicyModel.FK__Produkt__RodzajP__5CD6CB2B" />
+        <AssociationConnector Association="UzytkownicyModel.FK__Sklep_has__Produ__03F0984C" />
+        <AssociationConnector Association="UzytkownicyModel.FK__SzczProd__Produk__656C112C" />
+        <AssociationConnector Association="UzytkownicyModel.FK__Sklep_has__Sklep__02FC7413" />
+        <AssociationConnector Association="UzytkownicyModel.FK__Sklep_has__Sklep__6C190EBB" />
+        <AssociationConnector Association="UzytkownicyModel.FK__SYSUserPr__SYSUs__1BFD2C07" />
+        <AssociationConnector Association="UzytkownicyModel.FK__SYSUserRo__SYSUs__22AA2996" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

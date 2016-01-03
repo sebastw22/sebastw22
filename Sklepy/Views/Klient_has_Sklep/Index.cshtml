@@ -1,7 +1,8 @@
-﻿@model IEnumerable<Sklepy.Models.Klient_has_Sklep>
+﻿@model IEnumerable<Sklepy.Models.DB.Klient_has_Sklep>
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -12,19 +13,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Klient.Imie)
+            @Html.DisplayNameFor(model => model.Znizka1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Znizka2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Znizka3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Klient.Imię)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Sklep.Nazwa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.znizka1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.znizka2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.znizka3)
         </th>
         <th></th>
     </tr>
@@ -32,24 +33,24 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Klient.Imie)
+            @Html.DisplayFor(modelItem => item.Znizka1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Znizka2)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Znizka3)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Klient.Imię)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Sklep.Nazwa)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.znizka1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.znizka2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.znizka3)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Klient_has_SklepID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Klient_has_SklepID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Klient_has_SklepID })
+            @Html.ActionLink("Edit", "Edit", new { id=item.Klient_has_Sklep1 }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Klient_has_Sklep1 }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Klient_has_Sklep1 })
         </td>
     </tr>
 }

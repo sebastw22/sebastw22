@@ -3,8 +3,6 @@ using System.Web.Security;
 using Sklepy.Models.ViewModel;
 using Sklepy.Models.EntityManager;
 
-
-
 namespace Sklepy.Controllers
 {
     public class AccountController : Controller
@@ -26,6 +24,8 @@ namespace Sklepy.Controllers
                     FormsAuthentication.SetAuthCookie(USV.FirstName, false);
                     return RedirectToAction("Welcome", "Home");
 
+
+
                 }
                 else
                     ModelState.AddModelError("", "Login Name already taken.");
@@ -45,7 +45,6 @@ namespace Sklepy.Controllers
             {
                 UserManager UM = new UserManager();
                 string password = UM.GetUserPassword(ULV.LoginName);
-
                 if (string.IsNullOrEmpty(password))
                     ModelState.AddModelError("", "The user login or password provided is incorrect.");
                 else

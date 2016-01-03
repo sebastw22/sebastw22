@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\xxx\Desktop\Aplikacje internetowe\backup\Sklepy_v3\Sklepy\Models\DB\DemoModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\xxx\Desktop\Aplikacje internetowe\projekt\sebastw22\Sklepy\Models\DB\DemoModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

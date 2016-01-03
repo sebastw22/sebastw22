@@ -72,7 +72,7 @@ namespace Sklepy.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                string loginName = User.Identity.Name;
+                string loginName = User.Identity.Name;               
                 UserManager UM = new UserManager();
                 UserDataView UDV = UM.GetUserDataView(loginName);
 

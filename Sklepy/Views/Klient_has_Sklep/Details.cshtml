@@ -1,7 +1,8 @@
-﻿@model Sklepy.Models.Klient_has_Sklep
+﻿@model Sklepy.Models.DB.Klient_has_Sklep
 
 @{
     ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Details</h2>
@@ -11,11 +12,35 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Klient.Imie)
+            @Html.DisplayNameFor(model => model.Znizka1)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Klient.Imie)
+            @Html.DisplayFor(model => model.Znizka1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Znizka2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Znizka2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Znizka3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Znizka3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Klient.Imię)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Klient.Imię)
         </dd>
 
         <dt>
@@ -26,33 +51,9 @@
             @Html.DisplayFor(model => model.Sklep.Nazwa)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.znizka1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.znizka1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.znizka2)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.znizka2)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.znizka3)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.znizka3)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Klient_has_SklepID }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Klient_has_Sklep1 }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

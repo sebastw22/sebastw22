@@ -6,20 +6,21 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Sklepy.DAL;
-using Sklepy.Models;
+using Sklepy.Models.DB;
 
 namespace Sklepy.Controllers
 {
     public class Klient_has_SklepController : Controller
     {
-        private SklepyContext db = new SklepyContext();
+        private UzytkownicyEntities db = new UzytkownicyEntities();
 
         // GET: Klient_has_Sklep
         public ActionResult Index()
         {
-            var klient_has_Skleps = db.Klient_has_Skleps.Include(k => k.Klient).Include(k => k.Sklep);
-            return View(klient_has_Skleps.ToList());
+
+            var klient_has_Sklep = db.Klient_has_Sklep.Include(k => k.Klient).Include(k => k.Sklep);
+            return View(klient_has_Sklep.ToList());
+
         }
 
         // GET: Klient_has_Sklep/Details/5
@@ -29,7 +30,7 @@ namespace Sklepy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Klient_has_Sklep klient_has_Sklep = db.Klient_has_Skleps.Find(id);
+            Klient_has_Sklep klient_has_Sklep = db.Klient_has_Sklep.Find(id);
             if (klient_has_Sklep == null)
             {
                 return HttpNotFound();
@@ -40,8 +41,8 @@ namespace Sklepy.Controllers
         // GET: Klient_has_Sklep/Create
         public ActionResult Create()
         {
-            ViewBag.KlientID = new SelectList(db.Klients, "ID", "Imie");
-            ViewBag.SklepID = new SelectList(db.Skleps, "ID", "Nazwa");
+            ViewBag.KlientID = new SelectList(db.Klients, "KlientID", "Imię");
+            ViewBag.SklepID = new SelectList(db.Skleps, "SklepID", "Nazwa");
             return View();
         }
 
@@ -50,17 +51,17 @@ namespace Sklepy.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Klient_has_SklepID,KlientID,SklepID,znizka1,znizka2,znizka3")] Klient_has_Sklep klient_has_Sklep)
+        public ActionResult Create([Bind(Include = "Klient_has_Sklep1,SklepID,KlientID,Znizka1,Znizka2,Znizka3")] Klient_has_Sklep klient_has_Sklep)
         {
             if (ModelState.IsValid)
             {
-                db.Klient_has_Skleps.Add(klient_has_Sklep);
+                db.Klient_has_Sklep.Add(klient_has_Sklep);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.KlientID = new SelectList(db.Klients, "ID", "Imie", klient_has_Sklep.KlientID);
-            ViewBag.SklepID = new SelectList(db.Skleps, "ID", "Nazwa", klient_has_Sklep.SklepID);
+            ViewBag.KlientID = new SelectList(db.Klients, "KlientID", "Imię", klient_has_Sklep.KlientID);
+            ViewBag.SklepID = new SelectList(db.Skleps, "SklepID", "Nazwa", klient_has_Sklep.SklepID);
             return View(klient_has_Sklep);
         }
 
@@ -71,13 +72,13 @@ namespace Sklepy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Klient_has_Sklep klient_has_Sklep = db.Klient_has_Skleps.Find(id);
+            Klient_has_Sklep klient_has_Sklep = db.Klient_has_Sklep.Find(id);
             if (klient_has_Sklep == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.KlientID = new SelectList(db.Klients, "ID", "Imie", klient_has_Sklep.KlientID);
-            ViewBag.SklepID = new SelectList(db.Skleps, "ID", "Nazwa", klient_has_Sklep.SklepID);
+            ViewBag.KlientID = new SelectList(db.Klients, "KlientID", "Imię", klient_has_Sklep.KlientID);
+            ViewBag.SklepID = new SelectList(db.Skleps, "SklepID", "Nazwa", klient_has_Sklep.SklepID);
             return View(klient_has_Sklep);
         }
 
@@ -86,7 +87,7 @@ namespace Sklepy.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Klient_has_SklepID,KlientID,SklepID,znizka1,znizka2,znizka3")] Klient_has_Sklep klient_has_Sklep)
+        public ActionResult Edit([Bind(Include = "Klient_has_Sklep1,SklepID,KlientID,Znizka1,Znizka2,Znizka3")] Klient_has_Sklep klient_has_Sklep)
         {
             if (ModelState.IsValid)
             {
@@ -94,8 +95,8 @@ namespace Sklepy.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.KlientID = new SelectList(db.Klients, "ID", "Imie", klient_has_Sklep.KlientID);
-            ViewBag.SklepID = new SelectList(db.Skleps, "ID", "Nazwa", klient_has_Sklep.SklepID);
+            ViewBag.KlientID = new SelectList(db.Klients, "KlientID", "Imię", klient_has_Sklep.KlientID);
+            ViewBag.SklepID = new SelectList(db.Skleps, "SklepID", "Nazwa", klient_has_Sklep.SklepID);
             return View(klient_has_Sklep);
         }
 
@@ -106,7 +107,7 @@ namespace Sklepy.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Klient_has_Sklep klient_has_Sklep = db.Klient_has_Skleps.Find(id);
+            Klient_has_Sklep klient_has_Sklep = db.Klient_has_Sklep.Find(id);
             if (klient_has_Sklep == null)
             {
                 return HttpNotFound();
@@ -119,8 +120,8 @@ namespace Sklepy.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Klient_has_Sklep klient_has_Sklep = db.Klient_has_Skleps.Find(id);
-            db.Klient_has_Skleps.Remove(klient_has_Sklep);
+            Klient_has_Sklep klient_has_Sklep = db.Klient_has_Sklep.Find(id);
+            db.Klient_has_Sklep.Remove(klient_has_Sklep);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

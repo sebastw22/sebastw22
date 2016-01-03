@@ -25,13 +25,18 @@ namespace Sklepy.Models.DB
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Klient> Klients { get; set; }
+        public virtual DbSet<Klient_has_Sklep> Klient_has_Sklep { get; set; }
         public virtual DbSet<LOOKUPRole> LOOKUPRoles { get; set; }
+        public virtual DbSet<Miejsce> Miejsces { get; set; }
+        public virtual DbSet<Produkt> Produkts { get; set; }
+        public virtual DbSet<RodzajProd> RodzajProds { get; set; }
+        public virtual DbSet<Sklep> Skleps { get; set; }
+        public virtual DbSet<Sklep_has_Miejsce> Sklep_has_Miejsce { get; set; }
+        public virtual DbSet<Sklep_has_Produkt> Sklep_has_Produkt { get; set; }
         public virtual DbSet<SYSUser> SYSUsers { get; set; }
         public virtual DbSet<SYSUserProfile> SYSUserProfiles { get; set; }
         public virtual DbSet<SYSUserRole> SYSUserRoles { get; set; }
-
-        public System.Data.Entity.DbSet<Sklepy.Models.ViewModel.UserSignUpView> UserSignUpViews { get; set; }
-
-        public System.Data.Entity.DbSet<Sklepy.Models.ViewModel.UserLognView> UserLognViews { get; set; }
+        public virtual DbSet<SzczProd> SzczProds { get; set; }
     }
 }

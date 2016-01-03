@@ -12,29 +12,26 @@ namespace Sklepy.Models.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class SYSUser
+    public partial class Sklep
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SYSUser()
+        public Sklep()
         {
-            this.Klients = new HashSet<Klient>();
-            this.SYSUserProfiles = new HashSet<SYSUserProfile>();
-            this.SYSUserRoles = new HashSet<SYSUserRole>();
+            this.Klient_has_Sklep = new HashSet<Klient_has_Sklep>();
+            this.Sklep_has_Produkt = new HashSet<Sklep_has_Produkt>();
+            this.Sklep_has_Miejsce = new HashSet<Sklep_has_Miejsce>();
         }
     
-        public int SYSUserID { get; set; }
-        public string LoginName { get; set; }
-        public string PasswordEncryptedText { get; set; }
-        public int RowCreatedSYSUserID { get; set; }
-        public Nullable<System.DateTime> RowCreatedDateTime { get; set; }
-        public int RowModifiedSYSUserID { get; set; }
-        public Nullable<System.DateTime> RowMOdifiedDateTime { get; set; }
+        public int SklepID { get; set; }
+        public string Nazwa { get; set; }
+        public Nullable<int> Numer { get; set; }
+        public string Telefon { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Klient> Klients { get; set; }
+        public virtual ICollection<Klient_has_Sklep> Klient_has_Sklep { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SYSUserProfile> SYSUserProfiles { get; set; }
+        public virtual ICollection<Sklep_has_Produkt> Sklep_has_Produkt { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SYSUserRole> SYSUserRoles { get; set; }
+        public virtual ICollection<Sklep_has_Miejsce> Sklep_has_Miejsce { get; set; }
     }
 }

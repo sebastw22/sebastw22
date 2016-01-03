@@ -38,6 +38,19 @@ namespace Sklepy.Models.EntityManager
                 db.SYSUserProfiles.Add(SUP);
                 db.SaveChanges();
 
+                // MOJE !!!!!!!!!    MOJE !!!!!!!!!    MOJE !!!!!!!!!   
+
+                Klient Kl = new Klient();
+                Kl.SYSUserID = SU.SYSUserID;
+                Kl.Imię = user.FirstName;
+                Kl.Nazwisko = user.LastName;
+                Kl.Adres = user.Adres;
+                Kl.Email = user.Email;
+                Kl.Telefon = user.Telefon;
+                db.Klients.Add(Kl);
+                db.SaveChanges();
+                 
+                   
 
                 if (user.LOOKUPRoleID > 0)
                 {
@@ -53,6 +66,8 @@ namespace Sklepy.Models.EntityManager
                     db.SYSUserRoles.Add(SUR);
                     db.SaveChanges();
                 }
+
+
             }
         }
 
