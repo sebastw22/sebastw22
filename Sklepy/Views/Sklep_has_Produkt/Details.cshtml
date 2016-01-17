@@ -1,0 +1,35 @@
+﻿@model Sklepy.Models.DB.Sklep_has_Produkt
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Sklep_has_Produkt</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Produkt.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Produkt.Nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sklep.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sklep.Nazwa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Sklep_has_MiejsceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

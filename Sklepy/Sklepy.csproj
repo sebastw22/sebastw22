@@ -134,6 +134,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Klient_has_SklepController.cs" />
     <Compile Include="Controllers\MiejsceController.cs" />
+    <Compile Include="Controllers\ProduktController.cs" />
+    <Compile Include="Controllers\Sklep_has_ProduktController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -308,6 +310,16 @@
     <Content Include="Views\Klient_has_Sklep\Details.cshtml" />
     <Content Include="Views\Klient_has_Sklep\Edit.cshtml" />
     <Content Include="Views\Klient_has_Sklep\Index.cshtml" />
+    <Content Include="Views\Produkt\Create.cshtml" />
+    <Content Include="Views\Produkt\Delete.cshtml" />
+    <Content Include="Views\Produkt\Details.cshtml" />
+    <Content Include="Views\Produkt\Edit.cshtml" />
+    <Content Include="Views\Produkt\Index.cshtml" />
+    <Content Include="Views\Sklep_has_Produkt\Create.cshtml" />
+    <Content Include="Views\Sklep_has_Produkt\Delete.cshtml" />
+    <Content Include="Views\Sklep_has_Produkt\Details.cshtml" />
+    <Content Include="Views\Sklep_has_Produkt\Edit.cshtml" />
+    <Content Include="Views\Sklep_has_Produkt\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

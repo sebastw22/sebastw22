@@ -46,10 +46,10 @@
             @Html.DisplayFor(modelItem => item.Data_otwarcia)
         </td>
         <td>
-            @Html.ActionLink("Select", "Index", new { id = item.MiejsceID }) |
+            @Html.ActionLink("Wybierz tą galerię", "Index", new { id = item.MiejsceID }) @*|
             @Html.ActionLink("Edit", "Edit", new { id=item.MiejsceID }) |
             @Html.ActionLink("Details", "Details", new { id=item.MiejsceID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MiejsceID })
+            @Html.ActionLink("Delete", "Delete", new { id=item.MiejsceID })*@
         </td>
     </tr>
 }
@@ -57,44 +57,6 @@
 </table>
 
 
-@*
-@if (Model.Sklep_has_Miejsces != null)
-{
-    <h3>Sklepy i miejsca</h3>
-    <table class="table">
-        <tr>
-            <th></th>
-            <th>Miejsce</th>
-            <th>Sklep</th>
-        </tr>
-
-        @foreach (var item in Model.Sklep_has_Miejsces)
-        {
-            string selectedRow = "";
-            if (item.Sklep_has_MiejsceID == ViewBag.Sklep_has_MiejsceID)
-            {
-                selectedRow = "success";
-            }
-            <tr class="@selectedRow">
-  
-                
-                <td>
-                    @Html.ActionLink("Select", "Index", new { SklepID = item.SklepID })
-                </td>
-                <td>
-                    @item.MiejsceID
-                </td>
-                <td>
-                    @item.SklepID         
-                </td>
-            </tr>
-        }
-
-
-       
-    </table>
-}
-    *@
 @if (Model.Skleps != null)
 {
 
@@ -128,6 +90,15 @@
                 <td>
                     @item.Telefon
                 </td>
+
+
+                <td>
+                    @Html.ActionLink("Wybierz ten sklep", "Index", new { SklepID = item.SklepID }) @*|
+                    @Html.ActionLink("Edit", "Edit", new { SklepID = item.SklepID }) |
+                    @Html.ActionLink("Details", "Details", new { SklepID = item.SklepID }) |
+                    @Html.ActionLink("Delete", "Delete", new { SklepID = item.SklepID })*@
+                </td>
+
             </tr>
 
         }
@@ -136,4 +107,48 @@
     </table>
 }
 
+
+
       
+@if (Model.Produkts != null)
+{
+
+
+    <h3>Przedmioty w danym sklepie</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Nazwa</th>
+            <th>Ilosc</th>
+            <th>Cena</th>
+        </tr>
+
+
+        @foreach (var item in Model.Produkts)
+        {
+            string selectedRow = "";
+            if (item.ProduktID == ViewBag.ProduktID)
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+
+                <td></td>
+                <td>
+                    @item.Nazwa
+                </td>
+                <td>
+                    @item.IloscOgolem
+                </td>
+                <td>
+                    @item.Cena
+                </td>
+            </tr>
+
+        }
+
+
+    </table>
+}
+
+

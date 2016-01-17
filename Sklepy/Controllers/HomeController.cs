@@ -41,7 +41,7 @@ namespace Sklepy.Controllers
             return View();
         }
 
-        [AuthorizeRoles("Admin", "Sklep")]
+        [AuthorizeRoles("Admin")]
         public ActionResult AdminOnly()
         {
             return View();

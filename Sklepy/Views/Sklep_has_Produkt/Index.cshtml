@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Sklepy.Models.DB.Sklep_has_Produkt>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Połączenie sklepu z produktem</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Produkt.Nazwa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sklep.Nazwa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Produkt.Nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sklep.Nazwa)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Sklep_has_MiejsceID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Sklep_has_MiejsceID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Sklep_has_MiejsceID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -7,7 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Sklepy.Models.DB;
-
+using Sklepy.Models.ViewModel;
+using Sklepy.Models.EntityManager;
 namespace Sklepy.Controllers
 {
     public class Klient_has_SklepController : Controller
@@ -15,11 +16,49 @@ namespace Sklepy.Controllers
         private UzytkownicyEntities db = new UzytkownicyEntities();
 
         // GET: Klient_has_Sklep
-        public ActionResult Index()
+        [Authorize]
+        public ActionResult Index(int? id)
         {
+            UserManager UM = new UserManager();
+            int idZalogowanego = UM.GetUserID(User.Identity.Name);
+            ViewBag.idzal = idZalogowanego;
 
-            var klient_has_Sklep = db.Klient_has_Sklep.Include(k => k.Klient).Include(k => k.Sklep);
-            return View(klient_has_Sklep.ToList());
+            var viewModel = new Klient_has_SklepIndexData();
+
+            
+            viewModel.Klients = db.Klients.OrderBy(i => i.Nazwisko).ToList();
+
+            var skelp = viewModel.Klients.FirstOrDefault(i => i.SYSUserID == idZalogowanego);
+
+            if (skelp != null)
+            {
+                if (skelp.Klient_has_Sklep != null)
+                {
+                    viewModel.Klient_has_Skleps = skelp.Klient_has_Sklep.ToList();
+                }
+            }
+
+            
+            //viewModel.Sklep_has_Miejsces = viewModel.Miejsces.Where(i => i.MiejsceID == id.Value).Single().Sklep_has_Miejsce;
+           // viewModel.Skleps = viewModel.Sklep_has_Miejsces.Where(i => i.MiejsceID == id.Value).Select(s => s.Sklep);
+
+
+
+
+
+
+
+
+
+            //var produkts = db.Produkts.Include(p => p.RodzajProd);
+            //return View(produkts.ToList());
+
+
+            if (skelp == null) ViewBag.brakZnizek = "Nie masz zadnych zniżek";
+            else ViewBag.brakZnizek = "Twoje zniżki w sklepach";
+            return View(viewModel);
+
+
 
         }
 

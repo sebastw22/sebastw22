@@ -18,29 +18,28 @@ namespace Sklepy.Controllers
         public ActionResult Index( int? id, int? SklepID)
         {
 
-
+            
             var viewModel = new ProduktIndexData();
             viewModel.Miejsces = db.Miejsces
                // .Include(i => i.Sklep_has_Miejsce.Select(s => s.Sklep))
                 .OrderBy(i => i.Nazwa);
 
 
-            if (id !=null)
-            {
-                ViewBag.MiejsceIDa = id.Value;
-                viewModel.Sklep_has_Miejsces = viewModel.Miejsces.Where(i => i.MiejsceID == id.Value).Single().Sklep_has_Miejsce;
-                                
-            }
-
-            // if (SklepID != null)
             // z tego korzystam zeby wyswietlic dane o sklepie, porownuje miejsce id z ID przekazanym przez select
             if (id != null)
             {
+                viewModel.Sklep_has_Miejsces = viewModel.Miejsces.Where(i => i.MiejsceID == id.Value).Single().Sklep_has_Miejsce;
                 viewModel.Skleps = viewModel.Sklep_has_Miejsces.Where(i => i.MiejsceID == id.Value).Select(s => s.Sklep);
-             // viewModel.Skleps = viewModel.Sklep_has_Miejsces.Where(i => i.MiejsceID == SklepID.Value).Select(s => s.Sklep);
-
+          
             }
-
+            
+            if (SklepID != null)
+            {
+                ViewBag.SklepID = SklepID.Value;
+                viewModel.Sklep_has_Produkts = viewModel.Skleps.Where(i => i.SklepID == SklepID.Value).Single().Sklep_has_Produkt;
+                viewModel.Produkts = viewModel.Sklep_has_Produkts.Where(i => i.SklepID == SklepID.Value).Select(p => p.Produkt);
+                
+            }
 
 
             return View(viewModel);

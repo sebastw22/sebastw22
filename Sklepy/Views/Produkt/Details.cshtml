@@ -1,0 +1,51 @@
+﻿@model Sklepy.Models.DB.Produkt
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Produkt</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IloscOgolem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IloscOgolem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cena)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cena)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RodzajProd.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RodzajProd.Nazwa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProduktID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
